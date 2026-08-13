@@ -3,6 +3,7 @@ import getpass
 import secrets
 import string
 common_passwords=["password","123456","12345678","qwerty","admin","password123"]
+
 def generate_password(length=16):
     characters=string.ascii_letters+string.punctuation
     password=""
