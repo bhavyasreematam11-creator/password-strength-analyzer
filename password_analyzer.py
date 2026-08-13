@@ -1,7 +1,14 @@
 import re
 import getpass
+import secrets
+import string
 common_passwowrds=["password","123456","12345678","qwerty","admin","password123"]
-
+def generate_password(length=16):
+    characters=string.ascii_letters+string.punctuation
+    password=""
+    for _ in range(length):
+        password+=secrets.choice(characters)
+    return password
 def check_password(password):
     score = 0
     suggestions = []
@@ -64,4 +71,6 @@ if suggestions:
         print("-", suggestion)
 else:
     print("\nYour password meets all basic requirements!")
+print("\nsuggested secure password:")
+print(generate_password())
 
