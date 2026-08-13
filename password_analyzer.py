@@ -3,7 +3,6 @@ import getpass
 import secrets
 import string
 
-# List of common passwords
 common_passwords = [
     "password",
     "123456",
@@ -14,7 +13,6 @@ common_passwords = [
 ]
 
 
-# Generate a secure random password
 def generate_password(length=16):
     characters = string.ascii_letters + string.digits + string.punctuation
 
@@ -25,50 +23,47 @@ def generate_password(length=16):
     return password
 
 
-# Check password strength
 def check_password(password):
     score = 0
     suggestions = []
 
-    # Check common passwords
+    # Common password check
     if password.lower() in common_passwords:
-        suggestions.append(
-            "This is a common password. Choose a more unique password."
-        )
+        suggestions.append("This is a common password. Choose a more unique password.")
     else:
         score += 1
 
-    # Check password length
+    # Length check
     if len(password) >= 8:
         score += 1
     else:
         suggestions.append("Use at least 8 characters.")
 
-    # Check uppercase letter
+    # Uppercase check
     if re.search(r"[A-Z]", password):
         score += 1
     else:
         suggestions.append("Add at least one uppercase letter.")
 
-    # Check lowercase letter
+    # Lowercase check
     if re.search(r"[a-z]", password):
         score += 1
     else:
         suggestions.append("Add at least one lowercase letter.")
 
-    # Check number
+    # Number check
     if re.search(r"[0-9]", password):
         score += 1
     else:
         suggestions.append("Add at least one number.")
 
-    # Check special character
+    # Special character check
     if re.search(r"[^A-Za-z0-9]", password):
         score += 1
     else:
         suggestions.append("Add at least one special character.")
 
-    # Check uniqueness / repeated characters
+    # Uniqueness check
     if len(password) > 0:
         unique_ratio = len(set(password)) / len(password)
 
@@ -76,42 +71,56 @@ def check_password(password):
             score += 1
         else:
             suggestions.append(
-                "Avoid using too many repeated characters. "
-                "Choose a more unique password."
+                "Avoid too many repeated characters. Choose a more unique password."
             )
 
     return score, suggestions
 
 
-# Main program
-password = getpass.getpass("Enter your password: ")
+def main():
+    while True:
+        print("\n==============================")
+        print(" PASSWORD STRENGTH ANALYZER")
+        print("==============================")
+        print("1. Check Password Strength")
+        print("2. Generate Secure Password")
+        print("3. Exit")
 
-score, suggestions = check_password(password)
+        choice = input("\nEnter your choice (1-3): ")
 
-print("\nPassword Strength Analyzer")
-print("--------------------------")
-print("Score:", score, "/ 7")
+        if choice == "1":
+            password = getpass.getpass("Enter your password: ")
+
+            score, suggestions = check_password(password)
+
+            print("\nPassword Strength Analyzer")
+            print("--------------------------")
+            print("Score:", score, "/ 7")
+
+            if score <= 3:
+                print("Strength: Weak")
+            elif score <= 5:
+                print("Strength: Medium")
+            else:
+                print("Strength: Strong")
+
+            if suggestions:
+                print("\nSuggestions:")
+                for suggestion in suggestions:
+                    print("-", suggestion)
+            else:
+                print("\nYour password meets all basic requirements!")
+
+        elif choice == "2":
+            print("\nSuggested Secure Password:")
+            print(generate_password())
+
+        elif choice == "3":
+            print("\nThank you for using Password Strength Analyzer!")
+            break
+
+        else:
+            print("\nInvalid choice. Please enter 1, 2, or 3.")
 
 
-# Display password strength
-if score <= 3:
-    print("Strength: Weak")
-elif score <= 5:
-    print("Strength: Medium")
-else:
-    print("Strength: Strong")
-
-
-# Display suggestions
-if suggestions:
-    print("\nSuggestions:")
-
-    for suggestion in suggestions:
-        print("-", suggestion)
-else:
-    print("\nYour password meets all basic requirements!")
-
-
-# Generate a secure password
-print("\nSuggested secure password:")
-print(generate_password())
+main()
