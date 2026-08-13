@@ -1,6 +1,7 @@
 import re
 import getpass
 common_passwowrds=["password","123456","12345678","qwerty","admin","password123"]
+
 def check_password(password):
     score = 0
     suggestions = []
