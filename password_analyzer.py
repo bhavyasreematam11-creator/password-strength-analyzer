@@ -5,6 +5,10 @@ def check_password(password):
     score = 0
     suggestions = []
 
+    if password.lower() in common_passwords:
+        score=0
+        suggestions.append("This is a common password. Choose a more unique password.")
+
     # Check length
     if len(password) >= 8:
         score += 1
@@ -59,3 +63,4 @@ if suggestions:
         print("-", suggestion)
 else:
     print("\nYour password meets all basic requirements!")
+common_passwowrds=["password","123456","12345678","qwerty","admin","password123"]
