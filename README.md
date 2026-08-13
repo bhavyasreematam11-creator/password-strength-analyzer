@@ -34,3 +34,8 @@ A Python-based cybersecurity tool that analyzes password strength and provides r
 ```bash
 > This project was developed as part of Cyber Security Internship at Thiranex.
 python password_analyzer.py
+## Screenshots
+
+![Password Strength Analyzer](Screenshot%202026-08-13%20171828.png)
+
+![Password Analyzer Output](Screenshot%202026-08-13%20171844.png)
